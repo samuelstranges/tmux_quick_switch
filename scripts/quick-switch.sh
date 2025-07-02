@@ -13,14 +13,23 @@ get_window_mapping() {
 }
 
 get_window_list_with_colored_prefixes() {
-    local window_names=($(tmux list-windows -F "#{window_name}"))
-    local active_status=($(tmux list-windows -F "#{?window_active,(active),}"))
+    local window_data=($(tmux list-windows -F "#{window_name}|#{?window_active,1,0}"))
+    local window_names=()
+    local active_flags=()
     local result=""
+    
+    # Parse window data to separate names and active status
+    for entry in "${window_data[@]}"; do
+        local name="${entry%|*}"
+        local active="${entry#*|}"
+        window_names+=("$name")
+        active_flags+=("$active")
+    done
     
     # For each window, calculate minimum unique prefix
     for i in "${!window_names[@]}"; do
         local current_name="${window_names[$i]}"
-        local current_active="${active_status[$i]}"
+        local is_active="${active_flags[$i]}"
         local min_prefix_len=1
         local unique_prefix=""
         
@@ -57,8 +66,8 @@ get_window_list_with_colored_prefixes() {
         fi
         
         # Add active status if present
-        if [[ -n "$current_active" ]]; then
-            result+="${colored_name} ${current_active}"$'\n'
+        if [[ "$is_active" == "1" ]]; then
+            result+="${colored_name} (active)"$'\n'
         else
             result+="${colored_name}"$'\n'
         fi
@@ -94,7 +103,9 @@ show_fzf_popup() {
                     matches=\$(echo \"\$plain_display\" | grep -E \"^\$prefix\" | wc -l)
                     if [[ \$matches -eq 1 ]]; then
                         match=\$(echo \"\$plain_display\" | grep -E \"^\$prefix\" | head -1)
-                        window_index=\$(echo '$window_mapping' | grep -F \"\$match\" | head -1 | cut -d: -f2)
+                        # Remove (active) from match for proper mapping lookup
+                        clean_match=\$(echo \"\$match\" | sed 's/ (active)$//')
+                        window_index=\$(echo '$window_mapping' | grep -F \"\$clean_match\" | head -1 | cut -d: -f2)
                         tmux select-window -t \"\$window_index\" 2>/dev/null || true
                         tmux display-popup -C
                     fi
@@ -104,8 +115,10 @@ show_fzf_popup() {
         if [[ -n "$selected_window" ]]; then
             # Strip ANSI codes from selected window for matching
             local plain_selected=$(echo "$selected_window" | sed 's/\x1b\[[0-9;]*m//g')
+            # Remove (active) from selection for proper mapping lookup
+            local clean_selected=$(echo "$plain_selected" | sed 's/ (active)$//')
             local window_index
-            window_index=$(echo "$window_mapping" | grep -F "$plain_selected" | head -1 | cut -d: -f2)
+            window_index=$(echo "$window_mapping" | grep -F "$clean_selected" | head -1 | cut -d: -f2)
             tmux select-window -t "$window_index"
         fi
     else
