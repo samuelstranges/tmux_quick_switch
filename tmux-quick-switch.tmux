@@ -20,5 +20,5 @@ if [[ "$quick_switch_key" == "prefix" ]]; then
     prefix_key=$(tmux show-options -g prefix | cut -d' ' -f2)
     tmux bind-key "$prefix_key" run-shell "$CURRENT_DIR/scripts/quick-switch.sh '$auto_jump_exact_match'"
 else
-    tmux bind-key "$quick_switch_key" run-shell "$CURRENT_DIR/scripts/quick-switch.sh '$auto_jump_exact_match'"
+    tmux bind-key -T root "$quick_switch_key" run-shell "$CURRENT_DIR/scripts/quick-switch.sh '$auto_jump_exact_match'"
 fi
