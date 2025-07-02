@@ -91,8 +91,8 @@ show_fzf_popup() {
             --reverse \
             --border \
             --ansi \
-            --prompt="Select window (^prefix for exact match): " \
-            --header="Use arrow keys to navigate, Enter to select, Esc to cancel, ^prefix for exact match" \
+            --prompt="Select window: " \
+            --header="Use arrow keys to navigate, Enter to select, Esc to cancel" \
             --preview-window=hidden \
             --bind="change:execute-silent(
                 query={q}

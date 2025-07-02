@@ -1,6 +1,6 @@
 # tmux-quick-switch
 
-A tmux plugin that provides a floating fzf interface for quick window switching using prefix-prefix key binding.
+A tmux plugin that provides a floating fzf interface for quick window switching with intelligent prefix matching and visual indicators.
 
 ## Installation
 
@@ -40,11 +40,22 @@ Then press `prefix + I` to install.
 
 ## Configuration
 
+### Key Binding
+
 You can customize the key binding by setting the `@quick_switch_key` option in your `~/.tmux.conf`:
 
 ```bash
 # Use a custom key binding instead of prefix-prefix
 set -g @quick_switch_key 'C-w'
+```
+
+### Auto-Jump Exact Match
+
+Enable automatic jumping when typing an exact prefix match:
+
+```bash
+# Enable auto-jump for exact prefix matches
+set -g @quick_switch_auto_jump_exact 'on'
 ```
 
 ## Requirements
@@ -54,8 +65,10 @@ set -g @quick_switch_key 'C-w'
 
 ## Features
 
-- Centered floating popup window
-- Shows window index, name, and active status
-- Keyboard navigation with fzf
-- Configurable key binding
-- Automatic fzf detection with error message if not installed
+- **Centered floating popup window** - 50% height, 80% width, perfectly centered
+- **Intelligent prefix highlighting** - Minimum unique prefixes are highlighted in red and bold
+- **Visual active window indicator** - Shows which window is currently active
+- **Auto-jump exact matching** - Automatically switch to windows when typing exact prefixes (when enabled)
+- **Configurable key binding** - Use custom key combinations or stick with prefix-prefix
+- **Automatic fzf detection** - Graceful error handling if fzf is not installed
+- **ANSI color support** - Beautiful colored output in the fzf interface
