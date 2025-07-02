@@ -48,12 +48,12 @@ get_window_list_with_colored_prefixes() {
             unique_prefix="$current_name"
         fi
         
-        # Color the unique prefix green, rest normal
+        # Color the unique prefix light red and bold, rest normal
         local colored_name=""
         if [[ ${#unique_prefix} -lt ${#current_name} ]]; then
-            colored_name="\033[32m${unique_prefix}\033[0m${current_name:${#unique_prefix}}"
+            colored_name="\033[1;91m${unique_prefix}\033[0m${current_name:${#unique_prefix}}"
         else
-            colored_name="\033[32m${current_name}\033[0m"
+            colored_name="\033[1;91m${current_name}\033[0m"
         fi
         
         # Add active status if present
