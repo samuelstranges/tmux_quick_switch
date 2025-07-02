@@ -1,6 +1,7 @@
 # tmux-quick-switch
 
-A tmux plugin that provides a floating fzf interface for quick window switching with intelligent prefix matching and visual indicators.
+A tmux plugin that provides a floating fzf interface for quick window switching
+with intelligent prefix matching and visual indicators.
 
 ## Installation
 
@@ -9,7 +10,7 @@ A tmux plugin that provides a floating fzf interface for quick window switching 
 Add this line to your `~/.tmux.conf`:
 
 ```bash
-set -g @plugin 'your-username/tmux-quick-switch'
+set -g @plugin 'samuelstranges/tmux-quick-switch'
 ```
 
 Then press `prefix + I` to install.
@@ -17,23 +18,26 @@ Then press `prefix + I` to install.
 ### Manual Installation
 
 1. Clone this repository:
-   ```bash
-   git clone https://github.com/your-username/tmux-quick-switch.git ~/.tmux/plugins/tmux-quick-switch
-   ```
+
+    ```bash
+    git clone https://github.com/samuelstranges/tmux-quick-switch.git ~/.tmux/plugins/tmux-quick-switch
+    ```
 
 2. Add this line to your `~/.tmux.conf`:
-   ```bash
-   run-shell ~/.tmux/plugins/tmux-quick-switch/tmux-quick-switch.tmux
-   ```
+
+    ```bash
+    run-shell ~/.tmux/plugins/tmux-quick-switch/tmux-quick-switch.tmux
+    ```
 
 3. Reload tmux configuration:
-   ```bash
-   tmux source-file ~/.tmux.conf
-   ```
+    ```bash
+    tmux source-file ~/.tmux.conf
+    ```
 
 ## Usage
 
-- Press your tmux prefix key twice (default: `Ctrl-b Ctrl-b`) to open the window switcher
+- Press your tmux prefix key twice (default: `Ctrl-b Ctrl-b`) to open the window
+  switcher
 - Use arrow keys to navigate through your windows
 - Press `Enter` to select a window
 - Press `Esc` to cancel
@@ -42,7 +46,8 @@ Then press `prefix + I` to install.
 
 ### Key Binding
 
-You can customize the key binding by setting the `@quick_switch_key` option in your `~/.tmux.conf`:
+You can customize the key binding by setting the `@quick_switch_key` option in
+your `~/.tmux.conf`:
 
 ```bash
 # Use a custom key binding instead of prefix-prefix
@@ -60,15 +65,20 @@ set -g @quick_switch_auto_jump_exact 'on'
 
 ## Requirements
 
-- [fzf](https://github.com/junegunn/fzf) must be installed and available in your PATH
+- [fzf](https://github.com/junegunn/fzf) must be installed and available in your
+  PATH
 - tmux version 3.2 or later (for popup support)
 
 ## Features
 
 - **Centered floating popup window** - 50% height, 80% width, perfectly centered
-- **Intelligent prefix highlighting** - Minimum unique prefixes are highlighted in red and bold
+- **Intelligent prefix highlighting** - Minimum unique prefixes are highlighted
+  in red and bold
 - **Visual active window indicator** - Shows which window is currently active
-- **Auto-jump exact matching** - Automatically switch to windows when typing exact prefixes (when enabled)
-- **Configurable key binding** - Use custom key combinations or stick with prefix-prefix
+- **Auto-jump exact matching** - Automatically switch to windows when typing
+  exact prefixes (when enabled)
+- **Configurable key binding** - Use custom key combinations or stick with
+  prefix-prefix
 - **Automatic fzf detection** - Graceful error handling if fzf is not installed
 - **ANSI color support** - Beautiful colored output in the fzf interface
+
