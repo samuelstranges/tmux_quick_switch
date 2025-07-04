@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a tmux plugin that provides a floating fzf interface for quick window switching with intelligent prefix matching and visual indicators. The plugin consists of:
 
-- `tmux-quick-switch.tmux` - Main plugin entry point that configures key bindings
+- `tmux_quick_switch.tmux` - Main plugin entry point that configures key bindings
 - `scripts/quick-switch.sh` - Core functionality implementing the fzf popup interface
 
 ## Architecture

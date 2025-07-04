@@ -1,4 +1,4 @@
-# tmux-quick-switch
+# tmux_quick_switch
 
 A tmux plugin that provides a floating fzf interface for quick window switching
 with intelligent prefix matching and visual indicators.
@@ -10,7 +10,7 @@ with intelligent prefix matching and visual indicators.
 Add this line to your `~/.tmux.conf`:
 
 ```bash
-set -g @plugin 'samuelstranges/tmux-quick-switch'
+set -g @plugin 'samuelstranges/tmux_quick_switch'
 ```
 
 Then press `prefix + I` to install.
@@ -20,13 +20,13 @@ Then press `prefix + I` to install.
 1. Clone this repository:
 
     ```bash
-    git clone https://github.com/samuelstranges/tmux-quick-switch.git ~/.tmux/plugins/tmux-quick-switch
+    git clone https://github.com/samuelstranges/tmux_quick_switch.git ~/.tmux/plugins/tmux_quick_switch
     ```
 
 2. Add this line to your `~/.tmux.conf`:
 
     ```bash
-    run-shell ~/.tmux/plugins/tmux-quick-switch/tmux-quick-switch.tmux
+    run-shell ~/.tmux/plugins/tmux_quick_switch/tmux_quick_switch.tmux
     ```
 
 3. Reload tmux configuration:
