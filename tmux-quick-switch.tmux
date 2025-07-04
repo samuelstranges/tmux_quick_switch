@@ -19,6 +19,12 @@ auto_jump_exact_match=$(get_tmux_option "@quick_switch_auto_jump_exact" "off")
 if [[ "$quick_switch_key" == "prefix" ]]; then
     prefix_key=$(tmux show-options -g prefix | cut -d' ' -f2)
     tmux bind-key "$prefix_key" run-shell "$CURRENT_DIR/scripts/quick-switch.sh '$auto_jump_exact_match'"
+    
+    # Also bind to secondary prefix if it exists
+    prefix2_key=$(tmux show-options -g prefix2 2>/dev/null | cut -d' ' -f2)
+    if [[ -n "$prefix2_key" ]]; then
+        tmux bind-key "$prefix2_key" run-shell "$CURRENT_DIR/scripts/quick-switch.sh '$auto_jump_exact_match'"
+    fi
 else
     tmux bind-key -T root "$quick_switch_key" run-shell "$CURRENT_DIR/scripts/quick-switch.sh '$auto_jump_exact_match'"
 fi
