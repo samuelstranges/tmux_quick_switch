@@ -28,7 +28,7 @@ get_window_list_with_colored_prefixes() {
     local window_names=()
     local active_flags=()
     local result=""
-    
+
     # Parse window data to separate names and active status
     for entry in "${window_data[@]}"; do
         local name="${entry%|*}"
@@ -36,38 +36,38 @@ get_window_list_with_colored_prefixes() {
         window_names+=("$name")
         active_flags+=("$active")
     done
-    
+
     # For each window, calculate minimum unique prefix
     for i in "${!window_names[@]}"; do
         local current_name="${window_names[$i]}"
         local is_active="${active_flags[$i]}"
         local min_prefix_len=1
         local unique_prefix=""
-        
+
         # Find minimum unique prefix
         while [[ $min_prefix_len -le ${#current_name} ]]; do
             local prefix="${current_name:0:$min_prefix_len}"
             local matches=0
-            
+
             # Count how many windows start with this prefix
             for other_name in "${window_names[@]}"; do
                 if [[ "$other_name" == "$prefix"* ]]; then
                     ((matches++))
                 fi
             done
-            
+
             if [[ $matches -eq 1 ]]; then
                 unique_prefix="$prefix"
                 break
             fi
             ((min_prefix_len++))
         done
-        
+
         # If no unique prefix found, use full name
         if [[ -z "$unique_prefix" ]]; then
             unique_prefix="$current_name"
         fi
-        
+
         # Color the unique prefix light red and bold, rest normal
         local colored_name=""
         if [[ ${#unique_prefix} -lt ${#current_name} ]]; then
@@ -75,7 +75,7 @@ get_window_list_with_colored_prefixes() {
         else
             colored_name="\033[1;91m${current_name}\033[0m"
         fi
-        
+
         # Add active status if present
         if [[ "$is_active" == "1" ]]; then
             result+="${colored_name} (active)"$'\n'
@@ -83,22 +83,22 @@ get_window_list_with_colored_prefixes() {
             result+="${colored_name}"$'\n'
         fi
     done
-    
+
     echo -e "$result"
 }
 
 show_fzf_popup() {
     local selected_window
     local auto_jump_exact="$1"
-    
+
     # Check for exact prefix match if auto jump is enabled
     if [[ "$auto_jump_exact" == "on" ]]; then
         local window_display_list=$(get_window_list_with_colored_prefixes)
         local window_mapping=$(get_window_mapping)
-        
+
         # Use fzf with colored display list and enable ANSI colors
         selected_window=$(echo "$window_display_list" | fzf \
-            --height=50% \
+            --height=100% \
             --reverse \
             --border \
             --ansi \
@@ -122,7 +122,7 @@ show_fzf_popup() {
                     fi
                 fi
             )")
-        
+
         if [[ -n "$selected_window" ]]; then
             # Strip ANSI codes from selected window for matching
             local plain_selected=$(echo "$selected_window" | sed 's/\x1b\[[0-9;]*m//g')
@@ -134,13 +134,13 @@ show_fzf_popup() {
         fi
     else
         selected_window=$(get_window_list | fzf \
-            --height=50% \
+            --height=100% \
             --reverse \
             --border \
             --prompt="Select window: " \
             --header="Use arrow keys to navigate, Enter to select, Esc to cancel" \
             --preview-window=hidden)
-        
+
         if [[ -n "$selected_window" ]]; then
             local window_index
             window_index=$(echo "$selected_window" | cut -d: -f1)
@@ -159,3 +159,4 @@ fi
 if [[ "$1" == "popup" ]]; then
     show_fzf_popup "$2"
 fi
+
