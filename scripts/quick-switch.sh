@@ -1,5 +1,16 @@
 #!/usr/bin/env bash
 
+get_tmux_option() {
+    local option=$1
+    local default_value=$2
+    local option_value=$(tmux show-option -gqv "$option")
+    if [[ -z "$option_value" ]]; then
+        echo "$default_value"
+    else
+        echo "$option_value"
+    fi
+}
+
 get_window_list() {
     tmux list-windows -F "#{window_index}: #{window_name} #{?window_active,(active),}"
 }
@@ -139,7 +150,8 @@ show_fzf_popup() {
 }
 
 if command -v fzf >/dev/null 2>&1; then
-    tmux display-popup -E -h 50% -w 80% -x C -y C "bash $0 popup $1"
+    auto_jump_exact=$(get_tmux_option "@quick_switch_auto_jump_exact" "off")
+    tmux display-popup -E -h 50% -w 80% -x C -y C "bash $0 popup $auto_jump_exact"
 else
     tmux display-message "fzf is not installed"
 fi
