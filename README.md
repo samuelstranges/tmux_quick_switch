@@ -71,7 +71,7 @@ set -g @quick_switch_auto_jump_exact 'on'
 
 ## Features
 
-- **Centered floating popup window** - 50% height, 80% width, perfectly centered
+- **Centered floating popup window**
 - **Intelligent prefix highlighting** - Minimum unique prefixes are highlighted
   in red and bold
 - **Visual active window indicator** - Shows which window is currently active
@@ -81,4 +81,3 @@ set -g @quick_switch_auto_jump_exact 'on'
   prefix-prefix
 - **Automatic fzf detection** - Graceful error handling if fzf is not installed
 - **ANSI color support** - Beautiful colored output in the fzf interface
-
