@@ -1,5 +1,7 @@
 # tmux_quick_switch
 
+https://github.com/user-attachments/assets/4ad2a54c-9e76-48ce-aed0-d206436b5fef
+
 A tmux plugin that provides a floating fzf interface for quick window switching
 with intelligent prefix matching and visual indicators.
 
